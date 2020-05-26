@@ -4,5 +4,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-  <body></body>
+  <body>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io.connect("https://localhost:3000");
+      socket.on("message", (data) => {
+        console.log(data);
+        socket.emit("another event", { jeremy: "I am gr8 thnk u" });
+      });
+    </script>
+  </body>
 </html>
