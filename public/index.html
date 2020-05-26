@@ -76,10 +76,25 @@
     ></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-      const socket = io.connect("http://localhost:3000");
-      socket.on("message", (data) => {
+      // const socket = io.connect("http://localhost:3000");
+      const socket = io();
+      /* socket.on("message", (data) => {
         console.log(data);
         socket.emit("another event", { jeremy: "I am gr8 thnk u" });
+      }); */
+      $("form").submit(() => {
+        socket.emit("message", $("#m").val());
+        $("#m").val("");
+        return false;
+      });
+
+      socket.on("connect", () => {
+        // emiting to everybody
+        socket.emit("message", "user connected");
+      });
+
+      socket.on("message", (msg) => {
+        $("#messages").append($("<li>").text(msg));
       });
     </script>
   </body>
