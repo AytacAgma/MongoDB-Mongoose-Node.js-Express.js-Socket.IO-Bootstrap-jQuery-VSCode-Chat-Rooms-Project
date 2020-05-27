@@ -1,1 +1,1 @@
-﻿# Node.js-Express.js-Socket.IO-VS-Code-Chat-Rooms-Project
+﻿# Node.js-Express.js-Socket.IO-Bootstrap-jQuery-VSCode-Chat-Rooms-Project
