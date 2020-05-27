@@ -9,55 +9,20 @@
       integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
       crossorigin="anonymous"
     />
-    <style>
-      form {
-        padding: 20px;
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        padding-right: 50px;
-      }
-      #messages {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        width: 100%;
-      }
-      #messages li {
-        padding: 5px 10px;
-      }
-      #messages li:nth-child(odd) {
-        background: #eee;
-      }
-    </style>
   </head>
   <body>
-    <div class="container-fluid">
-      <div class="row">
-        <ul id="messages"></ul>
+    <div class="jumbotron">
+      <div class="container">
+        <h1 class="display-4">Technology Chat Rooms</h1>
+        <p class="lead">Select room below ;)</p>
       </div>
-      <form action="">
-        <div class="input-group mb-3">
-          <input
-            id="m"
-            autocomplete="off"
-            type="text"
-            class="form-control"
-            placeholder="Message"
-            aria-label="Message"
-            aria-describedby="button-addon2"
-          />
-          <div class="input-group-append">
-            <button
-              class="btn btn-outline-secondary"
-              type="submit"
-              id="button-addon2"
-            >
-              Send
-            </button>
-          </div>
-        </div>
-      </form>
+    </div>
+    <div class="container-fluid">
+      <ul class="list-group col">
+        <a href="/nodejs" class="list-group-item">NodeJS</a>
+        <a href="/expressjs" class="list-group-item">ExpressJS</a>
+        <a href="/socketio" class="list-group-item">SocketIO</a>
+      </ul>
     </div>
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -74,30 +39,5 @@
       integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
       crossorigin="anonymous"
     ></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-      const room = "nodejs";
-      // const socket = io.connect("http://localhost:3000");
-      const socket = io("/tech");
-      /* socket.on("message", (data) => {
-        console.log(data);
-        socket.emit("another event", { jeremy: "I am gr8 thnk u" });
-      }); */
-      $("form").submit(() => {
-        let msg = $("#m").val();
-        socket.emit("message", { msg, room });
-        $("#m").val("");
-        return false;
-      });
-
-      socket.on("connect", () => {
-        // emiting to everybody
-        socket.emit("join", { room: room });
-      });
-
-      socket.on("message", (msg) => {
-        $("#messages").append($("<li>").text(msg));
-      });
-    </script>
   </body>
 </html>

@@ -11,6 +11,18 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
 });
 
+app.get("/nodejs", (req, res) => {
+  res.sendFile(__dirname + "/public/nodejs.html");
+});
+
+app.get("/expressjs", (req, res) => {
+  res.sendFile(__dirname + "/public/expressjs.html");
+});
+
+app.get("/socketio", (req, res) => {
+  res.sendFile(__dirname + "/public/socketio.html");
+});
+
 const tech = io.of("/tech");
 
 tech.on("connection", (socket) => {
