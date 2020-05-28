@@ -5,9 +5,10 @@
   "main": "index.js",
   "dependencies": {
     "babel-cli": "^6.26.0",
-    "babel-preset-stage-0": "^6.24.1",
     "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-0": "^6.24.1",
     "express": "^4.17.1",
+    "mongoose": "^5.9.16",
     "nodemon": "^2.0.4",
     "socket.io": "^2.3.0"
   },
