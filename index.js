@@ -2,6 +2,14 @@ const app = require("express")();
 const server = require("http").Server(app);
 const io = require("socket.io")(server);
 const port = process.env.PORT || 3000;
+const mongoose = require("mongoose");
+
+const dbUrl =
+  "mongodb+srv://adminuser:<pass>@agma-tvrcr.mongodb.net/test?retryWrites=true&w=majority";
+
+mongoose.connect(dbUrl, { useMongoClient: true }, (err) => {
+  console.log("mongo db connection", err);
+});
 
 server.listen(port, () => {
   console.log("Server is running on port " + port);
