@@ -5,7 +5,7 @@ const port = process.env.PORT || 3000;
 const mongoose = require("mongoose");
 
 const dbUrl =
-  "mongodb+srv://adminuser:aiue@agma-tvrcr.mongodb.net/catapat?retryWrites=true&w=majority";
+  "mongodb+srv://adminuser:pass@agma-tvrcr.mongodb.net/catapat?retryWrites=true&w=majority";
 
 var Message = mongoose.model("Message", {
   name: String,
