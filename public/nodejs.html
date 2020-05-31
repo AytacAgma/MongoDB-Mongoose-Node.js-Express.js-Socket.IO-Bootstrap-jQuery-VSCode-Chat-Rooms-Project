@@ -39,6 +39,15 @@
       <form action="">
         <div class="input-group mb-3">
           <input
+            id="n"
+            autocomplete="on"
+            type="text"
+            class="form-control"
+            placeholder="Name"
+            aria-label="Name"
+            aria-describedby="button-addon2"
+          />
+          <input
             id="m"
             autocomplete="off"
             type="text"
@@ -84,8 +93,9 @@
         socket.emit("another event", { jeremy: "I am gr8 thnk u" });
       }); */
       $("form").submit(() => {
+        let name = $("#n").val();
         let msg = $("#m").val();
-        socket.emit("message", { msg, room });
+        socket.emit("message", { msg, room, name });
         $("#m").val("");
         return false;
       });
@@ -95,8 +105,15 @@
         socket.emit("join", { room: room });
       });
 
-      socket.on("message", (msg) => {
-        $("#messages").append($("<li>").text(msg));
+      socket.on("disconnect", () => {
+        // emiting to everybody
+        let name = $("#n").val();
+        socket.emit("disjoin", { name: "name" });
+      });
+
+      socket.on("message", (msg, name) => {
+        console.log(name + " " + msg);
+        $("#messages").append($("<li>").text(name + ": " + msg));
       });
     </script>
   </body>

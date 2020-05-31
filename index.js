@@ -5,11 +5,21 @@ const port = process.env.PORT || 3000;
 const mongoose = require("mongoose");
 
 const dbUrl =
-  "mongodb+srv://adminuser:<pass>@agma-tvrcr.mongodb.net/test?retryWrites=true&w=majority";
+  "mongodb+srv://adminuser:aiue@agma-tvrcr.mongodb.net/catapat?retryWrites=true&w=majority";
 
-mongoose.connect(dbUrl, { useMongoClient: true }, (err) => {
-  console.log("mongo db connection", err);
+var Message = mongoose.model("Message", {
+  name: String,
+  msg: String,
+  room: String,
 });
+
+mongoose.connect(
+  dbUrl,
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  (err) => {
+    console.log("mongo db connection", err);
+  }
+);
 
 server.listen(port, () => {
   console.log("Server is running on port " + port);
@@ -44,17 +54,30 @@ tech.on("connection", (socket) => {
     socket.join(data.room);
     tech
       .in(data.room)
-      .emit("message", "New user joined " + data.room + " room!");
+      .emit("message", "New user has joined " + data.room + " room!");
   });
 
   socket.on("message", (data) => {
-    console.log("message: " + data.msg);
-    tech.in(data.room).emit("message", data.msg);
+    var message = new Message(data);
+    message.save((err) => {
+      if (err)
+        //sendStatus(500);
+        console.log("error", err);
+
+      console.log("message: " + data.msg + " name: " + data.name);
+      tech.in(data.room).emit("message", data.msg, data.name);
+      //sendStatus(200);
+    });
   });
 
-  socket.on("disconnect", () => {
+  /* socket.on("disconnect", () => {
     console.log("user disconnected");
 
     tech.emit("message", "user disconnected");
+  }); */
+  socket.on("disjoin", (data) => {
+    console.log(data.name + " disconnected");
+
+    tech.emit("message", data.name + " disconnected");
   });
 });
