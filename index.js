@@ -5,7 +5,7 @@ const port = process.env.PORT || 3000;
 const mongoose = require("mongoose");
 
 const dbUrl =
-  "mongodb+srv://adminuser:pass@agma-tvrcr.mongodb.net/catapat?retryWrites=true&w=majority";
+  "mongodb+srv://adminuser:pas@agma-tvrcr.mongodb.net/catapat?retryWrites=true&w=majority";
 
 var Message = mongoose.model("Message", {
   name: String,
@@ -31,6 +31,10 @@ app.get("/", (req, res) => {
 
 app.get("/nodejs", (req, res) => {
   res.sendFile(__dirname + "/public/nodejs.html");
+  //Message.find({}, (err, messages) => {
+  //tech.in(data.room).emit("message", messages.msg, messages.name);
+  //res.send(messages);
+  //});
 });
 
 app.get("/expressjs", (req, res) => {
@@ -52,6 +56,18 @@ tech.on("connection", (socket) => {
 
   socket.on("join", (data) => {
     socket.join(data.room);
+
+    Message.find({}, (err, res) => {
+      if (err) console.log(err);
+
+      res.forEach((element) => {
+        tech.in(data.room).emit("message", element.msg, element.name);
+      });
+    });
+
+    /* const collection = Message.find({});
+    tech.in(data.room).emit("message", collection.msg, collection.name); */
+
     tech
       .in(data.room)
       .emit("message", "New user has joined " + data.room + " room!");
