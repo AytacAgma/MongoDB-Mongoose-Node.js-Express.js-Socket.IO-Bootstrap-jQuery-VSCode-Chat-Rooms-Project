@@ -4,6 +4,8 @@ const io = require("socket.io")(server);
 const port = process.env.PORT || 3000;
 const mongoose = require("mongoose");
 
+//let repeat = 0;
+
 const dbUrl =
   "mongodb+srv://adminuser:pas@agma-tvrcr.mongodb.net/catapat?retryWrites=true&w=majority";
 
@@ -54,23 +56,40 @@ tech.on("connection", (socket) => {
     console.log(data);
   }); */
 
+  let result = 0;
+
   socket.on("join", (data) => {
     socket.join(data.room);
 
-    Message.find({}, (err, res) => {
-      if (err) console.log(err);
+    async function oldMessagesAndJoinedMsg() {
+      let promise = Message.find({}, (err, res) => {
+        if (err) console.log(err);
 
-      res.forEach((element) => {
-        tech.in(data.room).emit("message", element.msg, element.name);
+        if (result == 0) {
+          res.forEach((element) => {
+            tech.in(data.room).emit("message", element.msg, element.name);
+          });
+          result = 1;
+        }
       });
-    });
 
-    /* const collection = Message.find({});
-    tech.in(data.room).emit("message", collection.msg, collection.name); */
+      /* const collection = Message.find({});
+      tech.in(data.room).emit("message", collection.msg, collection.name); */
 
-    tech
-      .in(data.room)
-      .emit("message", "New user has joined " + data.room + " room!");
+      await promise; //showing old messages are firstly then "new user has joined" msg
+
+      //await new Promise((resolve) => setTimeout(resolve, 1000)); //showing "new user has joined" msg after 1 second
+
+      tech
+        .in(data.room)
+        .emit("message", "New user has joined " + data.room + " room!");
+
+      //repeat++;
+    }
+
+    //if (repeat < 2) {
+    oldMessagesAndJoinedMsg();
+    //}
   });
 
   socket.on("message", (data) => {
