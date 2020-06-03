@@ -86,6 +86,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
       const room = "nodejs";
+      //let number = 0;
       // const socket = io.connect("http://localhost:3000");
       const socket = io("/tech");
       /* socket.on("message", (data) => {
@@ -102,6 +103,10 @@
 
       socket.on("connect", () => {
         // emiting to everybody
+        //socket.emit("oldmsgs", { room: room, number: number });
+        socket.emit("oldmsgs", { room: room });
+        //number++;
+        //console.log(number);
         socket.emit("join", { room: room });
       });
 
@@ -118,6 +123,23 @@
         } else {
           console.log(msg);
           $("#messages").append($("<li>").text(msg));
+        }
+      });
+
+      socket.on("oldmessages", (msg, name, i) => {
+        var myVariables = {};
+        //var variableName = i;
+        myVariables[i] = "txt" + i; //$("<i></i>").text(name + ": " + msg);
+        var myVarId = "#" + myVariables[i];
+        //myVariables.i; // = txt0
+
+        //this["txt" + i][0] = $("<i></i>").text(name + ": " + msg);
+        //$("#lili").before(myVariables[i]);
+        if ($(myVarId).val() == undefined) {
+          var myNewElement = "<li id=" + myVariables[i] + "></li>";
+          $(myNewElement).appendTo("#messages"); //creating dom element
+
+          $(myVarId).text(name + ": " + msg); //inserting content to it
         }
       });
     </script>

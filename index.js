@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 //let repeat = 0;
 
 const dbUrl =
-  "mongodb+srv://adminuser:pas@agma-tvrcr.mongodb.net/catapat?retryWrites=true&w=majority";
+  "mongodb+srv://adminuser:aiue@agma-tvrcr.mongodb.net/catapat?retryWrites=true&w=majority";
 
 var Message = mongoose.model("Message", {
   name: String,
@@ -37,6 +37,7 @@ app.get("/nodejs", (req, res) => {
   //tech.in(data.room).emit("message", messages.msg, messages.name);
   //res.send(messages);
   //});
+  //oldMessages("nodejs");
 });
 
 app.get("/expressjs", (req, res) => {
@@ -47,6 +48,33 @@ app.get("/socketio", (req, res) => {
   res.sendFile(__dirname + "/public/socketio.html");
 });
 
+//let result = 0;
+
+async function oldMessages(room) {
+  let promise = Message.find({}, (err, res) => {
+    if (err) console.log(err);
+
+    //console.log("func entered");
+    //if (result == 0) {
+    res.forEach((element, i) => {
+      tech.in(room).emit("oldmessages", element.msg, element.name, i);
+    });
+    //result = 1;
+    //}
+  });
+
+  /* const collection = Message.find({});
+    tech.in(data.room).emit("message", collection.msg, collection.name); */
+
+  //await promise; //showing old messages are firstly then "new user has joined" msg
+
+  //await new Promise((resolve) => setTimeout(resolve, 1000)); //showing "new user has joined" msg after 1 second
+
+  //tech.in(room).emit("message", "New user has joined " + room + " room!");
+
+  //repeat++;
+}
+
 const tech = io.of("/tech");
 
 tech.on("connection", (socket) => {
@@ -56,39 +84,24 @@ tech.on("connection", (socket) => {
     console.log(data);
   }); */
 
-  let result = 0;
+  socket.on("oldmsgs", (data) => {
+    //if (data.number == 0) {
+    socket.join(data.room);
+    oldMessages(data.room);
+    //result = 1;
+    //}
+  });
 
   socket.on("join", (data) => {
     socket.join(data.room);
 
-    async function oldMessagesAndJoinedMsg() {
-      let promise = Message.find({}, (err, res) => {
-        if (err) console.log(err);
-
-        if (result == 0) {
-          res.forEach((element) => {
-            tech.in(data.room).emit("message", element.msg, element.name);
-          });
-          result = 1;
-        }
-      });
-
-      /* const collection = Message.find({});
-      tech.in(data.room).emit("message", collection.msg, collection.name); */
-
-      await promise; //showing old messages are firstly then "new user has joined" msg
-
-      //await new Promise((resolve) => setTimeout(resolve, 1000)); //showing "new user has joined" msg after 1 second
-
-      tech
-        .in(data.room)
-        .emit("message", "New user has joined " + data.room + " room!");
-
-      //repeat++;
-    }
-
     //if (repeat < 2) {
-    oldMessagesAndJoinedMsg();
+    //oldMessagesAndJoinedMsg(data.room);
+    new Promise((resolve) => setTimeout(resolve, 2000));
+
+    tech
+      .in(data.room)
+      .emit("message", "New user has joined " + data.room + " room!");
     //}
   });
 
