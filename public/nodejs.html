@@ -137,9 +137,12 @@
         //$("#lili").before(myVariables[i]);
         if ($(myVarId).val() == undefined) {
           var myNewElement = "<li id=" + myVariables[i] + "></li>";
-          $(myNewElement).appendTo("#messages"); //creating dom element
+          // ** birinci yöntem
+          /* $(myNewElement).appendTo("#messages"); //creating dom element
+          $(myVarId).text(name + ": " + msg); //inserting content to it */
 
-          $(myVarId).text(name + ": " + msg); //inserting content to it
+          // **ikinci yöntem (tek satır)
+          $("#messages").append($(myNewElement).text(name + ": " + msg));
         }
       });
     </script>
