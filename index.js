@@ -13,6 +13,7 @@ var Message = mongoose.model("Message", {
   name: String,
   msg: String,
   room: String,
+  date: Date,
 });
 
 mongoose.connect(

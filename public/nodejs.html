@@ -96,7 +96,8 @@
       $("form").submit(() => {
         let name = $("#n").val();
         let msg = $("#m").val();
-        socket.emit("message", { msg, room, name });
+        let date = Date.now();
+        socket.emit("message", { msg, room, name, date });
         $("#m").val("");
         return false;
       });
