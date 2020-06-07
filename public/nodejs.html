@@ -127,7 +127,7 @@
         }
       });
 
-      socket.on("oldmessages", (msg, name, i) => {
+      socket.on("oldmessages", (msg, name, date, i) => {
         var myVariables = {};
         //var variableName = i;
         myVariables[i] = "txt" + i; //$("<i></i>").text(name + ": " + msg);
@@ -144,7 +144,9 @@
           $(myVarId).text(name + ": " + msg); //inserting content to it */
 
           // **ikinci yöntem (tek satır)
-          $("#messages").append($(myNewElement).text(name + ": " + msg));
+          $("#messages").append(
+            $(myNewElement).text(date + " - " + name + ": " + msg)
+          );
         }
       });
     </script>

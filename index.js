@@ -58,7 +58,9 @@ async function oldMessages(room) {
     //console.log("func entered");
     //if (result == 0) {
     res.forEach((element, i) => {
-      tech.in(room).emit("oldmessages", element.msg, element.name, i);
+      tech
+        .in(room)
+        .emit("oldmessages", element.msg, element.name, element.date, i);
     });
     //result = 1;
     //}
