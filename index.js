@@ -65,18 +65,25 @@ async function oldMessages(room) {
     });
     //result = 1;
     //}
+
+    // ** birinci yöntem
+    //tech.in(room).emit("message", "New user has joined " + room + " room!");
   });
 
   /* const collection = Message.find({});
     tech.in(data.room).emit("message", collection.msg, collection.name); */
 
-  //await promise; //showing old messages are firstly then "new user has joined" msg
+  //await promise; //firstly showing old messages then showing "new user has joined" msg
 
   //await new Promise((resolve) => setTimeout(resolve, 1000)); //showing "new user has joined" msg after 1 second
 
   //tech.in(room).emit("message", "New user has joined " + room + " room!");
 
   //repeat++;
+
+  // ** ikinci yöntem (async, await tekniği)
+  await promise; //firstly showing old messages then showing "new user has joined" msg
+  tech.in(room).emit("message", "New user has joined " + room + " room!");
 }
 
 const tech = io.of("/tech");
@@ -106,9 +113,9 @@ tech.on("connection", (socket) => {
 
     //new Promise((resolve) => setTimeout(resolve, 2000));
 
-    tech
+    /* tech
       .in(data.room)
-      .emit("message", "New user has joined " + data.room + " room!");
+      .emit("message", "New user has joined " + data.room + " room!"); */
     //}
   });
 
