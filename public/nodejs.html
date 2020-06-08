@@ -130,25 +130,35 @@
         }
       });
 
-      socket.on("oldmessages", (msg, name, date, i) => {
-        var myVariables = {}; //defining array variable
+      socket.on("oldmessages", (data) => {
+        // ** birinci yöntem (array ile atama)
+        /* var myVariables = {}; //defining array variable
         //var variableName = i;
-        myVariables[i] = "txt" + i; //$("<i></i>").text(name + ": " + msg);
-        var myVarId = "#" + myVariables[i];
-        //myVariables.i; // = txt0
+        myVariables[data.i] = "txt" + data.i; //$("<i></i>").text(name + ": " + msg); 
+        
+        var myVarId = "#" + myVariables[data.i];
 
+        //myVariables.i; // = txt0 
         //this["txt" + i][0] = $("<i></i>").text(name + ": " + msg);
-        //$("#lili").before(myVariables[i]);
-        if ($(myVarId).val() == undefined) {
-          var myNewElement = "<li id=" + myVariables[i] + "></li>";
+        //$("#lili").before(myVariables[i]); */
 
-          // ** birinci yöntem
+        // ** ikinci yöntem (normal variable ile atama)
+        var myVar = "txt" + data.i;
+        var myVarId = "#" + myVar;
+
+        if ($(myVarId).val() == undefined) {
+          //var myNewElement = "<li id=" + myVariables[data.i] + "></li>"; -- // ** birinci yöntemden kalma satır (array ile atama)
+          var myNewElement = "<li id=" + myVar + "></li>";
+
+          // ** birinci yöntem (element oluşturup içerğini atama: çoklu satır)
           /* $(myNewElement).appendTo("#messages"); //creating dom element
           $(myVarId).text(name + ": " + msg); //inserting content to it */
 
-          // **ikinci yöntem (tek satır)
+          // **ikinci yöntem (element oluşturup içerğini atama: tek satır)
           $("#messages").append(
-            $(myNewElement).text(date + " - " + name + ": " + msg)
+            $(myNewElement).text(
+              data.date + " - " + data.name + ": " + data.msg
+            )
           );
         }
       });

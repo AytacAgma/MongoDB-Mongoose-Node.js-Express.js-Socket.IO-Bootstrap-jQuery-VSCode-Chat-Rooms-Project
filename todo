@@ -4,3 +4,5 @@ show recorded old db messages +
 dont show old messages again when someone sign to room. only show new user has joined msg +
 showing date and times of all messages +
 sending "new user joined" message end of old messages +
+old messages refactoring +
+new messages refactoring
