@@ -131,7 +131,7 @@
       });
 
       socket.on("oldmessages", (msg, name, date, i) => {
-        var myVariables = {};
+        var myVariables = {}; //defining array variable
         //var variableName = i;
         myVariables[i] = "txt" + i; //$("<i></i>").text(name + ": " + msg);
         var myVarId = "#" + myVariables[i];
