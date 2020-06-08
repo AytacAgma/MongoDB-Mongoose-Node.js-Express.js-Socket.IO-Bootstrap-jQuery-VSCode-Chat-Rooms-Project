@@ -88,20 +88,23 @@ tech.on("connection", (socket) => {
     console.log(data);
   }); */
 
-  socket.on("oldmsgs", (data) => {
+  /* socket.on("oldmsgs", (data) => {
     //if (data.number == 0) {
     socket.join(data.room);
     oldMessages(data.room);
     //result = 1;
     //}
-  });
+  }); */
 
   socket.on("join", (data) => {
     socket.join(data.room);
 
     //if (repeat < 2) {
     //oldMessagesAndJoinedMsg(data.room);
-    new Promise((resolve) => setTimeout(resolve, 2000));
+
+    oldMessages(data.room);
+
+    //new Promise((resolve) => setTimeout(resolve, 2000));
 
     tech
       .in(data.room)
