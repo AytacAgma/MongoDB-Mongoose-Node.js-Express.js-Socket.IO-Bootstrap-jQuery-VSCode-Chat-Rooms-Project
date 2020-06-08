@@ -86,7 +86,9 @@ async function oldMessagesAndWelcome(room) {
 
   // ** ikinci yöntem (async, await tekniği)
   await promise; //firstly showing old messages then showing "new user has joined" msg
-  tech.in(room).emit("message", "New user has joined " + room + " room!");
+  tech
+    .in(room)
+    .emit("message", { msg: "New user has joined " + room + " room!" });
 }
 
 const tech = io.of("/tech");
@@ -130,7 +132,9 @@ tech.on("connection", (socket) => {
         console.log("error", err);
 
       console.log("message: " + data.msg + " name: " + data.name);
-      tech.in(data.room).emit("message", data.msg, data.name, data.date);
+      tech
+        .in(data.room)
+        .emit("message", { msg: data.msg, name: data.name, date: data.date });
       //sendStatus(200);
     });
   });
@@ -143,6 +147,6 @@ tech.on("connection", (socket) => {
   socket.on("disjoin", (data) => {
     console.log(data.name + " disconnected");
 
-    tech.emit("message", data.name + " disconnected");
+    tech.in(data.room).emit("message", { msg: data.name + " disconnected" });
   });
 });

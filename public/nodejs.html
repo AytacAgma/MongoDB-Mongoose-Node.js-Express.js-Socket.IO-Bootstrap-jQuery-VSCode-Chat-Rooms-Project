@@ -115,18 +115,18 @@
       socket.on("disconnect", () => {
         // emiting to everybody
         let name = $("#n").val();
-        socket.emit("disjoin", { name: "name" });
+        socket.emit("disjoin", { name: name, room: room });
       });
 
-      socket.on("message", (msg, name, date) => {
-        if (name != undefined) {
-          console.log(name + " " + msg);
+      socket.on("message", (data) => {
+        if (data.name != undefined) {
+          console.log(data.name + " " + data.msg);
           $("#messages").append(
-            $("<li>").text(date + " - " + name + ": " + msg)
+            $("<li>").text(data.date + " - " + data.name + ": " + data.msg)
           );
         } else {
-          console.log(msg);
-          $("#messages").append($("<li>").text(msg));
+          console.log(data.msg);
+          $("#messages").append($("<li>").text(data.msg));
         }
       });
 
