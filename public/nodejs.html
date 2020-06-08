@@ -97,7 +97,7 @@
       $("form").submit(() => {
         let name = $("#n").val();
         let msg = $("#m").val();
-        let date = moment().format("MMMM Do YYYY, h:mm:ss a"); //Date.now();
+        let date = moment().format("DD/MM/YYYY hh:mm:ss"); //moment().format("MMMM Do YYYY, h:mm:ss a"); //Date.now();
         socket.emit("message", { msg, room, name, date });
         $("#m").val("");
         return false;
