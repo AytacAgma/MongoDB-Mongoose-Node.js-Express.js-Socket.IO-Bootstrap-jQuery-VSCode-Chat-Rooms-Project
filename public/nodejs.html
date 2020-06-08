@@ -97,7 +97,7 @@
       $("form").submit(() => {
         let name = $("#n").val();
         let msg = $("#m").val();
-        let date = moment().format("DD/MM/YYYY hh:mm:ss"); //moment().format("MMMM Do YYYY, h:mm:ss a"); //Date.now();
+        let date = moment().format("DD/MM/YYYY hh:mm:ss a"); //moment().format("MMMM Do YYYY, h:mm:ss a"); //Date.now();
         socket.emit("message", { msg, room, name, date });
         $("#m").val("");
         return false;
@@ -118,10 +118,12 @@
         socket.emit("disjoin", { name: "name" });
       });
 
-      socket.on("message", (msg, name) => {
+      socket.on("message", (msg, name, date) => {
         if (name != undefined) {
           console.log(name + " " + msg);
-          $("#messages").append($("<li>").text(name + ": " + msg));
+          $("#messages").append(
+            $("<li>").text(date + " - " + name + ": " + msg)
+          );
         } else {
           console.log(msg);
           $("#messages").append($("<li>").text(msg));

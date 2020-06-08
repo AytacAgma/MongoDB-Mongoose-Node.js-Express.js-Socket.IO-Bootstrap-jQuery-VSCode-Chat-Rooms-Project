@@ -117,7 +117,7 @@ tech.on("connection", (socket) => {
         console.log("error", err);
 
       console.log("message: " + data.msg + " name: " + data.name);
-      tech.in(data.room).emit("message", data.msg, data.name);
+      tech.in(data.room).emit("message", data.msg, data.name, data.date);
       //sendStatus(200);
     });
   });
