@@ -50,6 +50,10 @@ app.get("/socketio", (req, res) => {
   res.sendFile(__dirname + "/public/socketio.html");
 });
 
+app.get("/rooms", (req, res) => {
+  res.sendFile(__dirname + "/public/rooms.html");
+});
+
 //let result = 0;
 
 async function oldMessagesAndWelcome(room) {

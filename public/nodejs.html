@@ -47,7 +47,7 @@
             aria-label="Name"
             aria-describedby="button-addon2"
           />
-          <input
+          <textarea
             id="m"
             autocomplete="off"
             type="text"
@@ -55,7 +55,7 @@
             placeholder="Message"
             aria-label="Message"
             aria-describedby="button-addon2"
-          />
+          ></textarea>
           <div class="input-group-append">
             <button
               class="btn btn-outline-secondary"
@@ -115,8 +115,8 @@
 
       socket.on("disconnect", () => {
         // emiting to everybody
-        let name = $("#n").val();
-        socket.emit("disjoin", { name: name, room: room });
+        //let name = $("#n").val();
+        //socket.emit("disjoin", { name: name, room: room });
       });
 
       socket.on("message", (data) => {

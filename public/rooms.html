@@ -14,34 +14,16 @@
     <div class="jumbotron">
       <div class="container">
         <h1 class="display-4">Technology Chat Rooms</h1>
-        <p class="lead">Enter Your Name:</p>
+        <p class="lead">Select room below ;)</p>
       </div>
     </div>
-    <form action="">
-      <div class="container-fluid">
-        <ul class="list-group col">
-          <input
-            id="n"
-            autocomplete="on"
-            type="text"
-            class="form-control"
-            placeholder="Name"
-            aria-label="Name"
-            aria-describedby="button-addon2"
-          />
-        </ul>
-        <ul class="list-group col">
-          <a href="/rooms" class="list-group-item">Enter!</a>
-          <button
-            class="btn btn-outline-secondary"
-            type="submit"
-            id="button-addon2"
-          >
-            Enter!
-          </button>
-        </ul>
-      </div>
-    </form>
+    <div class="container-fluid">
+      <ul class="list-group col">
+        <a href="/nodejs" class="list-group-item">NodeJS</a>
+        <a href="/expressjs" class="list-group-item">ExpressJS</a>
+        <a href="/socketio" class="list-group-item">SocketIO</a>
+      </ul>
+    </div>
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -57,13 +39,5 @@
       integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
       crossorigin="anonymous"
     ></script>
-    <script>
-      $("form").submit(() => {
-        let name = $("#n").val();
-        socket.emit("name", { name });
-        $("#n").val("");
-        return false;
-      });
-    </script>
   </body>
 </html>
