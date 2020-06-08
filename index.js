@@ -52,7 +52,7 @@ app.get("/socketio", (req, res) => {
 
 //let result = 0;
 
-async function oldMessages(room) {
+async function oldMessagesAndWelcome(room) {
   let promise = Message.find({}, (err, res) => {
     if (err) console.log(err);
 
@@ -109,7 +109,7 @@ tech.on("connection", (socket) => {
     //if (repeat < 2) {
     //oldMessagesAndJoinedMsg(data.room);
 
-    oldMessages(data.room);
+    oldMessagesAndWelcome(data.room);
 
     //new Promise((resolve) => setTimeout(resolve, 2000));
 
