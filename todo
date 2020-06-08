@@ -6,4 +6,4 @@ showing date and times of all messages +
 sending "new user joined" message end of old messages +
 old messages refactoring +
 new messages refactoring +
-giving right disconnect msgs 
+giving right disconnect msgs +

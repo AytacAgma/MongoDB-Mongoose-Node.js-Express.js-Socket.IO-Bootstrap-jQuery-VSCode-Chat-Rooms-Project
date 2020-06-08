@@ -109,7 +109,8 @@
         //socket.emit("oldmsgs", { room: room });
         //number++;
         //console.log(number);
-        socket.emit("join", { room: room });
+        let name = $("#n").val();
+        socket.emit("join", { room: room, name: name });
       });
 
       socket.on("disconnect", () => {

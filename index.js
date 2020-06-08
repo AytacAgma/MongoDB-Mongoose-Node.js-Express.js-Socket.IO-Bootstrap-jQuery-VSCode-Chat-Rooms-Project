@@ -122,6 +122,18 @@ tech.on("connection", (socket) => {
       .in(data.room)
       .emit("message", "New user has joined " + data.room + " room!"); */
     //}
+
+    socket.on("disconnect", () => {
+      if (data.name != undefined) {
+        console.log("User disconnected");
+        tech.in(data.room).emit("message", { msg: "User disconnected" });
+      } else {
+        console.log(data.name + " disconnected");
+        tech
+          .in(data.room)
+          .emit("message", { msg: data.name + " disconnected" });
+      }
+    });
   });
 
   socket.on("message", (data) => {
@@ -145,8 +157,7 @@ tech.on("connection", (socket) => {
     tech.emit("message", "user disconnected");
   }); */
   socket.on("disjoin", (data) => {
-    console.log(data.name + " disconnected");
-
-    tech.in(data.room).emit("message", { msg: data.name + " disconnected" });
+    //console.log(data.name + " disconnected");
+    //tech.in(data.room).emit("message", { msg: data.name + " disconnected" });
   });
 });
