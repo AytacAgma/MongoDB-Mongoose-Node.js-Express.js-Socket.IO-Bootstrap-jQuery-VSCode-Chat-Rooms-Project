@@ -17,8 +17,8 @@
         <p class="lead">Enter Your Name:</p>
       </div>
     </div>
-    <form action="">
-      <div class="container-fluid">
+    <form action="/rooms">
+      <div class="container">
         <ul class="list-group col">
           <input
             id="n"
@@ -31,7 +31,13 @@
           />
         </ul>
         <ul class="list-group col">
-          <a href="/rooms" class="list-group-item">Enter!</a>
+          <!-- <a
+            id="myLink"
+            href="/rooms"
+            class="list-group-item"
+            style="display: none;"
+            >Enter!</a
+          > -->
           <button
             class="btn btn-outline-secondary"
             type="submit"
@@ -57,12 +63,18 @@
       integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
       crossorigin="anonymous"
     ></script>
+    <script src="/socket.io/socket.io.js"></script>
     <script>
+      const socket = io("/tech");
       $("form").submit(() => {
         let name = $("#n").val();
         socket.emit("name", { name });
         $("#n").val("");
-        return false;
+        // window.location.href = "https://www.w3schools.com";
+        // window.location.replace("http://www.w3schools.com");
+        //window.open("https://www.google.com");
+        //$("#myLink").click();
+        // return false;
       });
     </script>
   </body>

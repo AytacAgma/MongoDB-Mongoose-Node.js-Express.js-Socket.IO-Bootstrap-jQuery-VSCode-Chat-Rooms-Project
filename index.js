@@ -150,7 +150,7 @@ tech.on("connection", (socket) => {
       console.log("message: " + data.msg + " name: " + data.name);
       tech
         .in(data.room)
-        .emit("message", { msg: data.msg, name: data.name, date: data.date });
+        .emit("message", { msg: data.msg, name: name, date: data.date });
       //sendStatus(200);
     });
   });
@@ -162,6 +162,12 @@ tech.on("connection", (socket) => {
   }); */
   socket.on("disjoin", (data) => {
     //console.log(data.name + " disconnected");
+    //tech.in(data.room).emit("message", { msg: data.name + " disconnected" });
+  });
+
+  socket.on("name", (data) => {
+    console.log(data.name + " entered nick name");
+    const name = data.name;
     //tech.in(data.room).emit("message", { msg: data.name + " disconnected" });
   });
 });

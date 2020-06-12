@@ -38,7 +38,7 @@
       </div>
       <form action="">
         <div class="input-group mb-3">
-          <input
+          <!-- <input
             id="n"
             autocomplete="on"
             type="text"
@@ -46,7 +46,7 @@
             placeholder="Name"
             aria-label="Name"
             aria-describedby="button-addon2"
-          />
+          /> -->
           <textarea
             id="m"
             autocomplete="off"
@@ -95,10 +95,11 @@
         socket.emit("another event", { jeremy: "I am gr8 thnk u" });
       }); */
       $("form").submit(() => {
-        let name = $("#n").val();
+        // let name = $("#n").val();
         let msg = $("#m").val();
         let date = moment().format("DD/MM/YYYY hh:mm:ss a"); //moment().format("MMMM Do YYYY, h:mm:ss a"); //Date.now();
-        socket.emit("message", { msg, room, name, date });
+        //socket.emit("message", { msg, room, name, date });
+        socket.emit("message", { msg, room, date });
         $("#m").val("");
         return false;
       });
@@ -109,8 +110,9 @@
         //socket.emit("oldmsgs", { room: room });
         //number++;
         //console.log(number);
-        let name = $("#n").val();
-        socket.emit("join", { room: room, name: name });
+        //let name = $("#n").val();
+        //socket.emit("join", { room: room, name: name });
+        socket.emit("join", { room: room });
       });
 
       socket.on("disconnect", () => {
