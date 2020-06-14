@@ -4,6 +4,8 @@ const io = require("socket.io")(server);
 const port = process.env.PORT || 3000;
 const mongoose = require("mongoose");
 //var moment = require("moment");
+//const querystring = require("querystring");
+const bodyParser = require("body-parser");
 
 //let repeat = 0;
 
@@ -24,6 +26,10 @@ mongoose.connect(
     console.log("mongo db connection", err);
   }
 );
+
+//querystring.decode();
+
+//app.use(express.urlencoded());
 
 server.listen(port, () => {
   console.log("Server is running on port " + port);
@@ -50,7 +56,14 @@ app.get("/socketio", (req, res) => {
   res.sendFile(__dirname + "/public/socketio.html");
 });
 
-app.get("/rooms", (req, res) => {
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
+
+app.post("/rooms", urlencodedParser, (req, res) => {
+  // console.log(req.param.n); //çalışmıyor
+  // console.log(req.params.n); //çalışmıyor
+  console.log(req.param("n")); //hem querystring (form method=get) hem form method post'ta çalışıyor.
+  console.log(req.body.n); //sadece post'ta
+  const name = req.body.n;
   res.sendFile(__dirname + "/public/rooms.html");
 });
 
@@ -165,9 +178,8 @@ tech.on("connection", (socket) => {
     //tech.in(data.room).emit("message", { msg: data.name + " disconnected" });
   });
 
-  socket.on("name", (data) => {
+  /* socket.on("name", (data) => {
     console.log(data.name + " entered nick name");
     const name = data.name;
-    //tech.in(data.room).emit("message", { msg: data.name + " disconnected" });
-  });
+  }); */
 });

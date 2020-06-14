@@ -17,11 +17,12 @@
         <p class="lead">Enter Your Name:</p>
       </div>
     </div>
-    <form action="/rooms">
+    <form action="/rooms" method="POST">
       <div class="container">
         <ul class="list-group col">
           <input
             id="n"
+            name="n"
             autocomplete="on"
             type="text"
             class="form-control"
@@ -63,19 +64,20 @@
       integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
       crossorigin="anonymous"
     ></script>
-    <script src="/socket.io/socket.io.js"></script>
+    <!-- <script src="/socket.io/socket.io.js"></script>
     <script>
       const socket = io("/tech");
       $("form").submit(() => {
         let name = $("#n").val();
-        socket.emit("name", { name });
-        $("#n").val("");
+        //socket.emit("name", { name });
+        //querystring.encode();
+        //$("#n").val("");
         // window.location.href = "https://www.w3schools.com";
         // window.location.replace("http://www.w3schools.com");
         //window.open("https://www.google.com");
         //$("#myLink").click();
         // return false;
       });
-    </script>
+    </script> -->
   </body>
 </html>

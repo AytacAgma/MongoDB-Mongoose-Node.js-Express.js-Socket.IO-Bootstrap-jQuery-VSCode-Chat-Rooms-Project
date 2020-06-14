@@ -7,3 +7,4 @@ sending "new user joined" message end of old messages +
 old messages refactoring +
 new messages refactoring +
 giving right disconnect msgs +
+logged in users frame
