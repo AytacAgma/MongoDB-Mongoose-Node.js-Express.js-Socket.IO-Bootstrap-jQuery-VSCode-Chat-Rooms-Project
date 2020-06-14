@@ -1,4 +1,5 @@
-nick enterance page
+nick enterance page +
+save post's nick to mongoDB
 connect and disconnect messages with nickname
 show recorded old db messages +
 dont show old messages again when someone sign to room. only show new user has joined msg +

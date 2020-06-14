@@ -7,6 +7,8 @@ const mongoose = require("mongoose");
 //const querystring = require("querystring");
 const bodyParser = require("body-parser");
 
+let name;
+
 //let repeat = 0;
 
 const dbUrl =
@@ -63,7 +65,7 @@ app.post("/rooms", urlencodedParser, (req, res) => {
   // console.log(req.params.n); //çalışmıyor
   console.log(req.param("n")); //hem querystring (form method=get) hem form method post'ta çalışıyor.
   console.log(req.body.n); //sadece post'ta
-  const name = req.body.n;
+  name = req.body.n;
   res.sendFile(__dirname + "/public/rooms.html");
 });
 
@@ -154,13 +156,13 @@ tech.on("connection", (socket) => {
   });
 
   socket.on("message", (data) => {
-    var message = new Message(data);
+    var message = new Message(data, name);
     message.save((err) => {
       if (err)
         //sendStatus(500);
         console.log("error", err);
 
-      console.log("message: " + data.msg + " name: " + data.name);
+      console.log("message: " + data.msg + " name: " + name);
       tech
         .in(data.room)
         .emit("message", { msg: data.msg, name: name, date: data.date });
