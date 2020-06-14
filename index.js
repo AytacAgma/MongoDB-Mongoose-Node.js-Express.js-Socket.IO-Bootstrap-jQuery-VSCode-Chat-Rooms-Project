@@ -1,7 +1,7 @@
 const app = require("express")();
 const server = require("http").Server(app);
 const io = require("socket.io")(server);
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const mongoose = require("mongoose");
 //var moment = require("moment");
 //const querystring = require("querystring");
@@ -58,6 +58,7 @@ app.get("/socketio", (req, res) => {
   res.sendFile(__dirname + "/public/socketio.html");
 });
 
+// ** ikinci yöntem get (querystring) ya da post ile nick kaydetme yöntemi
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 app.post("/rooms", urlencodedParser, (req, res) => {
@@ -66,6 +67,7 @@ app.post("/rooms", urlencodedParser, (req, res) => {
   console.log(req.param("n")); //hem querystring (form method=get) hem form method post'ta çalışıyor.
   console.log(req.body.n); //sadece post'ta
   name = req.body.n;
+  console.log(name);
   res.sendFile(__dirname + "/public/rooms.html");
 });
 
@@ -180,8 +182,9 @@ tech.on("connection", (socket) => {
     //tech.in(data.room).emit("message", { msg: data.name + " disconnected" });
   });
 
+  // ** birinci yöntem event emit ve on ile nick kaydetme yöntemi
   /* socket.on("name", (data) => {
     console.log(data.name + " entered nick name");
-    const name = data.name;
+    name = data.name;
   }); */
 });

@@ -64,12 +64,13 @@
       integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
       crossorigin="anonymous"
     ></script>
+    <!-- ** birinci yöntem event emit ve on ile nick kaydetme yöntemi -->
     <!-- <script src="/socket.io/socket.io.js"></script>
     <script>
       const socket = io("/tech");
       $("form").submit(() => {
         let name = $("#n").val();
-        //socket.emit("name", { name });
+        socket.emit("name", { name });
         //querystring.encode();
         //$("#n").val("");
         // window.location.href = "https://www.w3schools.com";
